@@ -2,7 +2,7 @@
 .editorconfig
 .travis.yml
 .idea/
-src/
+!src/
 test/
 !lib/
 

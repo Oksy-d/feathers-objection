@@ -164,6 +164,7 @@ class Service extends AdapterService {
     if (params.$modifyEager) { delete params.$modifyEager; }
     if (params.$mergeEager) { delete params.$mergeEager; }
     if (params.$noSelect) { delete params.$noSelect; }
+    if (params.$group) { delete params.$group; }
     if (params.$modify) { delete params.$modify; }
     if (params.$allowRefs) { delete params.$allowRefs; }
 

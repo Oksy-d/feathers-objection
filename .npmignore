@@ -4,6 +4,7 @@
 .idea/
 test/
 !lib/
+!src/
 
 db.sqlite
 example/

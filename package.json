@@ -41,6 +41,7 @@
   "types": "types",
   "files": [
     "lib",
+    "src",
     "types"
   ],
   "scripts": {

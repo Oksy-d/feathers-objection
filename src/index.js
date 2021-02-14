@@ -592,6 +592,18 @@ class Service extends AdapterService {
         if (query && query.$modify && params.modifierFiltersResults !== false) {
           this.modifyQuery(countQuery, query.$modify);
         }
+		
+        if (hasLeftJoinOperation)
+        {
+          for (let i=0; i<countQuery._operations.length; i+=1) {
+            const operation = countQuery._operations[i];
+            if (operation.name === 'groupBy') {
+              // removing group by from left joins operations otherwise the count query wont work.
+              countQuery._operations.splice(i, 1);
+              //delete countQuery._operations[i];
+            }
+          }
+        }
 
         this.objectify(countQuery, query, null, null, query.$allowRefs);
 

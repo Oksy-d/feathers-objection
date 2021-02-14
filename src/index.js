@@ -314,6 +314,15 @@ class Service extends AdapterService {
 
     return null;
   }
+  
+  hasLeftJoin(query) {
+    for (const operation of query._operations) {
+      if (operation.name === 'leftJoinRelation') {
+        return true
+      }
+    }
+    return false;
+  }
 
   async _createTransaction (params) {
     if (!params.transaction && params.atomic) {
@@ -524,6 +533,7 @@ class Service extends AdapterService {
     const find = (params, count, filters, query) => {
       const q = params.objection || this.createQuery(params);
       const groupByColumns = this.getGroupByColumns(q);
+	  const hasLeftJoinOperation = this.hasLeftJoin(q); // Handle the left join and the distinct results
 
       // Handle $limit
       if (filters.$limit) {
@@ -571,6 +581,10 @@ class Service extends AdapterService {
             .countDistinct({ total: countColumns });
         } else if (countColumns.length > 1) {
           countQuery.countDistinct({ total: countColumns });
+		} else if (hasLeftJoinOperation) {
+          countQuery.countDistinct({
+            total: countColumns
+          });
         } else {
           countQuery.count({ total: countColumns });
         }
